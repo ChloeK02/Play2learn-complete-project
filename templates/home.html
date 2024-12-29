@@ -1,0 +1,32 @@
+{% extends '_base_vue.html' %}
+
+{% block title %}Home - Play2Learn{% endblock %}
+
+{% block main %}
+  <div class="container mt-5">
+    <h1>Welcome to Play2Learn!</h1>
+    <p>Your destination for fun and educational games.</p>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Math Facts Game</h5>
+            <p class="card-text">Improve your math skills with this fun and challenging game!</p>
+            <a href="{% url 'math_facts' %}" class="btn btn-primary">Play Now</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Anagram Hunt</h5>
+            <p class="card-text">Challenge yourself to find as many anagrams as possible!</p>
+            <a href="{% url 'anagram_hunt' %}" class="btn btn-primary">Play Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
