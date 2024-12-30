@@ -62,6 +62,23 @@ AUTHENTICATION_BACKENDS = (
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
+try:
+    from .local_settings import SENDGRID_API_KEY
+except ImportError:
+    SENDGRID_API_KEY = None  # Use default fallback if local_settings isn't found
+
+if SENDGRID_API_KEY:
+    EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
+    SENDGRID_API_KEY = SENDGRID_API_KEY
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.sendgrid.net'
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = 'apikey'  # Use 'apikey' as the user for SendGrid API
+    EMAIL_HOST_PASSWORD = SENDGRID_API_KEY  # Use your SendGrid API key as the password
+    ADMIN_EMAIL = 'ckiedaisch09@gmail.com'  # The admin's email address
+
+
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -152,3 +169,8 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# BOTTOM OF settings.py
+if os.environ.get('ENVIRONMENT') != 'production':
+    from .local_settings import *
+# DON'T PUT ANYTHING BELOW THIS

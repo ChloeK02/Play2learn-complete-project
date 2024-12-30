@@ -1,12 +1,13 @@
 from django.http import JsonResponse
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 from .models import GameHistory, Review
-from django.test import TestCase
-from django.urls import reverse
-
+import html
+from django.urls import reverse_lazy
+from django.views.generic.edit import FormView
+from .forms import ContactUsForm
+from common.email import send_email
 
 # Static templates views
 class MathFactsView(TemplateView):
@@ -15,22 +16,30 @@ class MathFactsView(TemplateView):
 class AnagramHuntView(TemplateView):
     template_name = "anagram-hunt.html"
 
-class LeaderboardTest(TestCase):
-    def test_leaderboard_view(self):
-        # Create test users and scores
-        user1 = User.objects.create_user(username='user1', password='password')
-        user2 = User.objects.create_user(username='user2', password='password')
+class ContactSuccess(TemplateView):
+    template_name = 'contact_success.html' 
 
-        GameHistory.objects.create(user=user1, score=100)
-        GameHistory.objects.create(user=user2, score=150)
+class ContactUsView(FormView):
+    template_name = 'contact_us.html'  # Your template for the contact form
+    form_class = ContactUsForm
+    success_url = reverse_lazy('contact_success')  # Redirect to a success page after submission
 
-        # Get the leaderboard page
-        response = self.client.get(reverse('leaderboard'))
+    def form_valid(self, form):
+        data = form.cleaned_data
+        to = 'ckiedaisch09@gmail.com'
+        subject = 'Contact us form'
+        content = f'''<p>Hey there!</p>
+            <p>For the owner of Play2Learn:</p>
+            <ol>'''
+        for key, value in data.items():
+            label = key.replace('_', ' ').title()
+            entry = html.escape(str(value), quote=False)
+            content += f'<li>{label}: {entry}</li>'
+        
+        content += '</ol>'
 
-        # Check if the leaderboard is rendered and contains the correct scores
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'user2')  # User with the highest score
-        self.assertContains(response, '150')   # Score of user2
+        send_email(to, subject, content)
+        return super().form_valid(form)
 
 # Account view for logged-in users
 @login_required
@@ -103,3 +112,4 @@ def leaderboard(request):
     top_scores = GameHistory.objects.order_by('-score')[:10]
     print(top_scores)
     return render(request, 'leaderboard.html', {'leaderboard': top_scores})
+
