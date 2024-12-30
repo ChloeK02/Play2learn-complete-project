@@ -1,7 +1,9 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
-from .models import Review
+from .models import GameHistory
+
 
 # Static templates views
 class MathFactsView(TemplateView):
@@ -42,3 +44,48 @@ def thank_you(request):
 def home(request):
     reviews = Review.objects.all()
     return render(request, 'home.html', {'reviews': reviews})
+
+def record_score(request):
+    if request.method == 'POST':
+        game_type = request.POST.get('game_type')
+        game_settings = request.POST.get('game_settings')
+        score = int(request.POST.get('score'))
+        time_taken = int(request.POST.get('time_taken'))
+
+        # Save the score to the database
+        game_history = GameHistory(
+            user=request.user,
+            game_type=game_type,
+            game_settings=game_settings,
+            score=score,
+            time_taken=time_taken,
+        )
+        game_history.save()
+
+        # Fetch the top 10 scores (leaderboard)
+        leaderboard = GameHistory.objects.all().order_by('-score')[:10]  # Get top 10 scores
+        leaderboard_data = [
+            {
+                'username': history.user.username,
+                'score': history.score,
+                'time_taken': history.time_taken,
+            }
+            for history in leaderboard
+        ]
+
+        return JsonResponse({'leaderboard': leaderboard_data})
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+def leaderboard(request):
+    # Fetch the top 10 scores
+    leaderboard = GameHistory.objects.all().order_by('-score')[:10]
+    leaderboard_data = [
+        {
+            'username': history.user.username,
+            'score': history.score,
+            'time_taken': history.time_taken,
+        }
+        for history in leaderboard
+    ]
+    return render(request, 'leaderboard.html', {'leaderboard': leaderboard_data})

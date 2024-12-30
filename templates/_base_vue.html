@@ -1,135 +1,16 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}{% endblock %}</title>
-<link rel="stylesheet" href="{% static 'styles.css' %}">
+<!-- Bootstrap CSS CDN-->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<script defer src="http://localhost:8080/js/chunk-vendors.js"></script>
-<script defer src="http://localhost:8080/js/app.js"></script>
-
-  <style>
- 
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
-
-    .content-wrapper {
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .content-wrapper > .container {
-      flex: 1;
-      display: flex;
-      justify-content: center; 
-      align-items: center;
-      flex-direction: column;
-    }
-
-    #app {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-    }
-
-    .footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: #f8f9fa;
-      text-align: center;
-      padding: 1rem;
-      box-shadow: 0 -2px 5px rgba(0,0,0,0.1); /* Optional shadow */
-}
-  </style>
-</head>
+<script defer src="http://localhost:8080/js/chunk-vendors.js"></script><script defer src="http://localhost:8080/js/app.js"></script></head>
 <body>
-
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Play2Learn</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Games
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="/anagram-hunt/">Anagram Hunt</a></li>
-              <li><a class="dropdown-item" href="/math-facts/">Math Facts</a></li>
-            </ul>
-          </li>
-  
-          <!-- Check if the user is logged in -->
-          {% if user.is_authenticated %}
-            <!-- If logged in, show Log Out link -->
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'account_logout' %}">Log Out</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'my_account' %}">My Account</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'submit_review' %}">Reviews</a>
-            </li>
-          {% else %}
-            <!-- If not logged in, show Sign Up and Log In links -->
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'account_login' %}">Log In</a>
-            </li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-  </nav>
-  
-  
-    <div class="container mt-5">
-      {% block main %}
-      {% endblock %}
-    </div>
-
-
-    <div id="app"></div> 
-   
-    <footer class="footer">
-      <div class="container p-4">
-        <div class="row">
-          <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Play2Learn</h5>
-            <p>Enhance your skills with fun games for all ages!</p>
-          </div>
-          <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Contact Us</h5>
-            <p>Email us at: <a href="mailto:contact@play2learn.com">contact@play2learn.com</a></p>
-            <p>Follow us on social media for the latest updates!</p>
-          </div>
-        </div>
-      </div>
-      <div class="text-center p-3">
-        <span>© 2024 Play2Learn</span>
-      </div>
-    </footer>
-    
-  </div> 
+  {% block main %}{% endblock %}
+  <div id="app"></div>
+  <!-- Bootstrap JS CDN -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
 </body>
 </html>
