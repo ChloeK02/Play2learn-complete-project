@@ -64,8 +64,6 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
-          
-          <!-- Games Dropdown -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Games
@@ -81,6 +79,9 @@
             <!-- If logged in, show Log Out link -->
             <li class="nav-item">
               <a class="nav-link" href="{% url 'account_logout' %}">Log Out</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'my_account' %}">My Account</a>
             </li>
           {% else %}
             <!-- If not logged in, show Sign Up and Log In links -->

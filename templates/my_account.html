@@ -1,0 +1,13 @@
+{% extends '_base_vue.html' %}
+
+{% block main %}
+  <div class="container mt-5">
+    <h2>My Account</h2>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    
+    {% if user.is_staff %}
+      <p><a href="/admin/" class="btn btn-primary">Go to Admin Site</a></p>
+    {% endif %}
+  </div>
+{% endblock %}
