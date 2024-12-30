@@ -19,9 +19,10 @@ class Review(models.Model):
     
 class GameHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    game_name = models.CharField(max_length=100)  # This should be defined in your model
+    game_settings = models.CharField(max_length=100)
     score = models.IntegerField()
-    game_name = models.CharField(max_length=100)
-    date_played = models.DateTimeField(auto_now_add=True)
+    time_taken = models.IntegerField()
 
     def __str__(self):
         return f'{self.user.username} - {self.game_name} - {self.score}'

@@ -10,4 +10,5 @@ urlpatterns = [
     path('submit-review/', views.submit_review, name='submit_review'),
     path('thank-you/', views.thank_you, name='thank_you'),
     path('leaderboard/', views.leaderboard, name='leaderboard'),
+    path('record-score/', views.record_score, name='record_score'),
 ]

@@ -130,7 +130,7 @@ export default {
     },
     async recordScore() {
       const formData = new FormData();
-      formData.append('game_type', 'Anagram Hunt');
+      formData.append('game_name', 'Anagram Hunt');
       formData.append('game_settings', JSON.stringify({
         wordLength: this.wordLength,  // Include the word length or any other relevant game setting
       }));
