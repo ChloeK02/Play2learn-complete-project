@@ -17,3 +17,11 @@ class Review(models.Model):
         return f"Review by {self.user.username} for {self.game_name}"   
 
     
+class GameHistory(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    score = models.IntegerField()
+    game_name = models.CharField(max_length=100)
+    date_played = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.game_name} - {self.score}'

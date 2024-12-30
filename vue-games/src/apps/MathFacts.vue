@@ -112,6 +112,8 @@
 
 <script>
 import { getRandomInteger } from '@/helpers/helpers';
+import axios from 'axios';
+import { getCSRFToken } from "@/helpers/helpers";
 
 export default {
   name: 'MathGame',
@@ -171,7 +173,7 @@ export default {
     // Send score data to the backend using Axios
       const response = await axios.post('/record-score/', formData, {
         headers: {
-          'X-CSRFToken': this.getCookie('csrftoken'),  // CSRF token for security (ensure you have this method set up)
+          'X-CSRFToken': getCSRFToken(),  // CSRF token for security (ensure you have this method set up)
           }
         });
 
