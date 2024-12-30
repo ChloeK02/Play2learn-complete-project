@@ -6,8 +6,9 @@
   <div class="container mt-5">
     <h1>Welcome to Play2Learn!</h1>
     <p>Your destination for fun and educational games.</p>
-    
-    <div class="row">
+
+    <!-- Game Cards -->
+    <div class="row my-4">
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
@@ -17,7 +18,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
@@ -27,9 +28,43 @@
           </div>
         </div>
       </div>
-   
+    </div>
 
-</div>
- </div>
- </div>
+
+    <!-- Reviews Carousel -->
+    <div class="row" style="padding: 10px;">
+      <div class="col-md-12">
+        <div id="reviewsCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            {% for review in reviews %}
+              <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="card text-center mx-auto" style="width: 18rem;">
+                  <div class="card-body d-flex flex-column justify-content-center">
+                    <!-- Displaying the actual review data -->
+                    <h5 class="card-title">{{ review.game_name }}</h5>
+                    <p class="card-text">{{ review.review_text }}</p> <!-- Assuming you have a 'review_text' field -->
+                    <p class="card-text">Rating: {{ review.rating }}/5</p>
+                    <p class="card-text"><small class="text-muted">- {{ review.user.username }}</small></p>
+                  </div>
+                </div>
+              </div>
+            {% empty %}
+              <p>No reviews available.</p>
+            {% endfor %}
+          </div>
+          <!-- Carousel Controls -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
+
+
