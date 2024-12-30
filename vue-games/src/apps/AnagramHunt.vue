@@ -132,22 +132,22 @@ export default {
       const formData = new FormData();
       formData.append('game_name', 'Anagram Hunt');
       formData.append('game_settings', JSON.stringify({
-        wordLength: this.wordLength,  // Include the word length or any other relevant game setting
+        wordLength: this.wordLength, 
       }));
-      formData.append('score', this.score);  // User's score
-      formData.append('time_taken', 60 - this.timeLeft);  // Time remaining in seconds (60 - timeLeft)
+      formData.append('score', this.score);  
+      formData.append('time_taken', 60 - this.timeLeft); 
 
       try {
-    // Send score data to the backend using Axios
+ 
       const response = await axios.post('/record-score/', formData, {
         headers: {
-          'X-CSRFToken': getCSRFToken(),  // CSRF token for security (ensure you have this method set up)
+          'X-CSRFToken': getCSRFToken(),  
           }
         });
 
-    // If the score was successfully submitted, update the leaderboard
+
         if (response.data.leaderboard) {
-      // Update the leaderboard with the response data
+
           this.leaderboard = response.data.leaderboard;
         }
         

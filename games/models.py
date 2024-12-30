@@ -19,7 +19,7 @@ class Review(models.Model):
     
 class GameHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    game_name = models.CharField(max_length=100)  # This should be defined in your model
+    game_name = models.CharField(max_length=100)
     game_settings = models.CharField(max_length=100)
     score = models.IntegerField()
     time_taken = models.IntegerField()

@@ -76,7 +76,7 @@ def home(request):
 
 def record_score(request):
     if request.method == 'POST':
-        game_name = request.POST.get('game_name', None)
+        game_name = request.POST.get('game_name')
         game_settings = request.POST.get('game_settings')
         score = int(request.POST.get('score'))
         
