@@ -20,9 +20,9 @@ class ContactSuccess(TemplateView):
     template_name = 'contact_success.html' 
 
 class ContactUsView(FormView):
-    template_name = 'contact_us.html'  # Your template for the contact form
+    template_name = 'contact_us.html'  
     form_class = ContactUsForm
-    success_url = reverse_lazy('contact_success')  # Redirect to a success page after submission
+    success_url = reverse_lazy('contact_success')  
 
     def form_valid(self, form):
         data = form.cleaned_data
@@ -41,12 +41,12 @@ class ContactUsView(FormView):
         send_email(to, subject, content)
         return super().form_valid(form)
 
-# Account view for logged-in users
+
 @login_required
 def my_account(request):
     return render(request, 'my_account.html', {'user': request.user}) 
 
-# View to handle review submissions
+
 @login_required
 def submit_review(request):
     if request.method == 'POST':
@@ -54,7 +54,7 @@ def submit_review(request):
         review_text = request.POST.get('review_text')
         rating = request.POST.get('rating')
 
-        # Save the review to the database
+
         Review.objects.create(
             user=request.user,
             game_name=game_name,
@@ -65,11 +65,10 @@ def submit_review(request):
 
     return render(request, 'submit_review.html')
 
-# Thank you page after submitting a review
 def thank_you(request):
     return render(request, 'review_thank_you.html')
 
-# Home page displaying reviews
+
 def home(request):
     reviews = Review.objects.all()
     return render(request, 'home.html', {'reviews': reviews})
@@ -81,7 +80,6 @@ def record_score(request):
         score = int(request.POST.get('score'))
         
 
-        # Save the score to the database
         game_history = GameHistory(
             user=request.user,
             game_name=game_name,
@@ -92,7 +90,7 @@ def record_score(request):
         game_history.save()
         print(f"Score recorded: {game_history.user.username} - {game_history.score}")
 
-        # Fetch the top 10 scores (leaderboard) for the specific game
+    
         leaderboard = GameHistory.objects.filter(game_name=game_name).order_by('-score')[:10]
         leaderboard_data = [
             {
@@ -108,7 +106,7 @@ def record_score(request):
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
 def leaderboard(request):
-    # Get the top 10 scores (adjust this query as per your model)
+ 
     top_scores = GameHistory.objects.order_by('-score')[:10]
     print(top_scores)
     return render(request, 'leaderboard.html', {'leaderboard': top_scores})
