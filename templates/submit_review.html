@@ -1,35 +1,50 @@
 {% extends "_base_vue.html" %}
 
+{% block title %}Submit a Review{% endblock %}
+
 {% block main %}
-  <h1>Submit a Review</h1>
-  
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div class="mb-3">
-      <label for="game_name" class="form-label">Game</label>
-      <select name="game_name" id="game_name" class="form-select" required>
-        <option value="Math Facts">Math Facts</option>
-        <option value="Anagram Hunt">Anagram Hunt</option>
-      </select>
-    </div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white text-center">
+                    <h1>Submit a Review</h1>
+                </div>
+                <div class="card-body">
+                    <form method="POST" novalidate>
+                        {% csrf_token %}
 
-    <div class="mb-3">
-      <label for="review_text" class="form-label">Review</label>
-      <textarea name="review_text" id="review_text" rows="4" class="form-control" required></textarea>
-    </div>
+                        <div class="mb-3">
+                            <label for="game_name" class="form-label">Game</label>
+                            <select name="game_name" id="game_name" class="form-select" required>
+                                <option value="Math Facts">Math Facts</option>
+                                <option value="Anagram Hunt">Anagram Hunt</option>
+                            </select>
+                        </div>
 
-    <div class="mb-3">
-      <label for="rating" class="form-label">Rating</label>
-      <select name="rating" id="rating" class="form-select" required>
-        <option value="1">1 Star</option>
-        <option value="2">2 Stars</option>
-        <option value="3">3 Stars</option>
-        <option value="4">4 Stars</option>
-        <option value="5">5 Stars</option>
-      </select>
-    </div>
+                        <div class="mb-3">
+                            <label for="review_text" class="form-label">Review</label>
+                            <textarea name="review_text" id="review_text" rows="4" class="form-control" required></textarea>
+                        </div>
 
-    <button type="submit" class="btn btn-primary">Submit Review</button>
-  </form>
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rating</label>
+                            <select name="rating" id="rating" class="form-select" required>
+                                <option value="1">1 Star</option>
+                                <option value="2">2 Stars</option>
+                                <option value="3">3 Stars</option>
+                                <option value="4">4 Stars</option>
+                                <option value="5">5 Stars</option>
+                            </select>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-block">Submit Review</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

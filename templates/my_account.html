@@ -1,13 +1,66 @@
 {% extends '_base_vue.html' %}
 
+{% block title %}My Account - Play2Learn{% endblock %}
+
 {% block main %}
   <div class="container mt-5">
-    <h2>My Account</h2>
-    <p><strong>Username:</strong> {{ user.username }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    
-    {% if user.is_staff %}
-      <p><a href="/admin/" class="btn btn-primary">Go to Admin Site</a></p>
-    {% endif %}
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <!-- User Info Card -->
+        <div class="card shadow-lg border-light">
+          <div class="card-body">
+            <h2 class="text-center mb-4">My Account</h2>
+            <div class="mb-3">
+              <p><strong>Username:</strong> {{ user.username }}</p>
+              <p><strong>Email:</strong> {{ user.email }}</p>
+            </div>
+
+            <!-- Admin Button (Visible only for staff users) -->
+            {% if user.is_staff %}
+              <div class="mt-4 text-center">
+                <a href="/admin/" class="btn btn-danger btn-lg shadow-sm">Go to Admin Site</a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 {% endblock %}
+
+{% block styles %}
+  <style>
+    .card {
+      border-radius: 8px;
+      background-color: #f8f9fa;
+    }
+
+    .card-body {
+      padding: 2rem;
+    }
+
+    h2 {
+      color: #007bff;
+    }
+
+    .btn {
+      border-radius: 50px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05); /* Slightly enlarge the button */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow */
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .btn-danger:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+  </style>
+  {% endblock %}

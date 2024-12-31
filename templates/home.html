@@ -1,28 +1,33 @@
+
+
 {% extends '_base_vue.html' %}
 
 {% block title %}Home - Play2Learn{% endblock %}
 
 {% block main %}
   <div class="container mt-5">
-    <h1>Welcome to Play2Learn!</h1>
-    <p>Your destination for fun and educational games.</p>
+    <div class="text-center mb-5 p-5 rounded shadow-lg" style="background: linear-gradient(to bottom right, #007bff, #00d4ff); color: white;">
+      <h1 class="display-4">Welcome to Play2Learn!</h1>
+      <p class="lead">Your destination for fun and educational games.</p>
+      <a href="#games" class="btn btn-light btn-lg">Explore Games</a>
+    </div>
 
-    <!-- Game Cards -->
-    <div class="row my-4">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Math Facts Game</h5>
+
+    <div id="games" class="row my-4">
+      <div class="col-md-6 mb-4">
+        <div class="card game-card shadow-lg border-dark">
+          <div class="card-body text-center">
+            <h5 class="card-title text-primary">Math Facts Game</h5>
             <p class="card-text">Improve your math skills with this fun and challenging game!</p>
             <a href="{% url 'math_facts' %}" class="btn btn-primary">Play Now</a>
           </div>
         </div>
       </div>
 
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Anagram Hunt</h5>
+      <div class="col-md-6 mb-4">
+        <div class="card game-card shadow-lg border-dark">
+          <div class="card-body text-center">
+            <h5 class="card-title text-warning">Anagram Hunt</h5>
             <p class="card-text">Challenge yourself to find as many anagrams as possible!</p>
             <a href="{% url 'anagram_hunt' %}" class="btn btn-primary">Play Now</a>
           </div>
@@ -30,9 +35,7 @@
       </div>
     </div>
 
-
-    <!-- Reviews Carousel -->
-    <div class="row" style="padding: 10px;">
+    <div class="row">
       <div class="col-md-12">
         <div id="reviewsCarousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
@@ -40,19 +43,19 @@
               <div class="carousel-item {% if forloop.first %}active{% endif %}">
                 <div class="card text-center mx-auto" style="width: 18rem;">
                   <div class="card-body d-flex flex-column justify-content-center">
-                    <!-- Displaying the actual review data -->
                     <h5 class="card-title">{{ review.game_name }}</h5>
-                    <p class="card-text">{{ review.review_text }}</p> <!-- Assuming you have a 'review_text' field -->
+                    <p class="card-text">{{ review.review_text }}</p>
                     <p class="card-text">Rating: {{ review.rating }}/5</p>
                     <p class="card-text"><small class="text-muted">- {{ review.user.username }}</small></p>
                   </div>
                 </div>
               </div>
             {% empty %}
-              <p>No reviews available.</p>
+              <p class="text-center text-muted">No reviews available.</p>
             {% endfor %}
           </div>
-          <!-- Carousel Controls -->
+
+ 
           <button class="carousel-control-prev" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -67,4 +70,34 @@
   </div>
 {% endblock %}
 
+{% block styles %}
+  <style>
+    .game-card {
+      border-radius: 8px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
+    .game-card:hover {
+      transform: scale(1.05); 
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    
+    .card-body {
+      background-color: #f9f9f9;
+    }
+
+    .text-primary {
+      color: #007bff !important;
+    }
+
+    .text-warning {
+      color: #ffc107 !important;
+    }
+
+    .hero-section {
+      background: linear-gradient(to bottom right, #007bff, #00d4ff);
+      color: white;
+    }
+  </style>
+{% endblock %}

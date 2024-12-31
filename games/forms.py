@@ -12,6 +12,6 @@ class ReviewForm(forms.Form):
     rating = forms.IntegerField(min_value=1, max_value=5, label='Rating (1-5)')
 
 class ContactUsForm(forms.Form):
-    name = forms.CharField(max_length=100, required=True)
-    email = forms.EmailField(required=True)
-    message = forms.CharField(widget=forms.Textarea, required=True)
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Name'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your Email'}))
+    message = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Your Message', 'rows': 4}))
